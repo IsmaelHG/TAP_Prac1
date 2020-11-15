@@ -14,7 +14,7 @@ public class Message {
     private String subject;
     private String sender, receiver;
     private String body;
-    private LocalDateTime creationtime;
+    private final LocalDateTime creationtime;
 
     /**
      *

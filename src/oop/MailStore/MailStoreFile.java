@@ -1,4 +1,7 @@
 package oop.MailStore;
 
-public class MailStoreFile {
+public class MailStoreFile extends MailStore {
+
+
+
 }

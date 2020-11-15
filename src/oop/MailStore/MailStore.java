@@ -1,6 +1,9 @@
 package oop.MailStore;
 
 import oop.Message;
+import oop.User;
+
+import java.util.List;
 
 /**
  *
@@ -13,7 +16,7 @@ public abstract class MailStore {
     /**
      *
      */
-    public void SendMail () {
+    public void SendMail (Message mail) {
 
 
     }
@@ -22,7 +25,7 @@ public abstract class MailStore {
      *
      * @return
      */
-    public Message[] GetMail () {
+    public List<Message> GetMail (String username) {
 
 
         return null;
