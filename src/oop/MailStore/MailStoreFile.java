@@ -2,8 +2,7 @@ package oop.MailStore;
 
 import oop.Message;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
@@ -25,6 +24,22 @@ public class MailStoreFile implements MailStore {
      */
     @Override
     public void SendMail(Message mail) {
+        File mailFile = new File(this.filename);
+        FileWriter fr = null;
+        try {
+            fr = new FileWriter(mailFile, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedWriter br = new BufferedWriter(fr);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            br.write(mail.getSubject()+";"+mail.getSender()+";"+mail.getReceiver()+";"+mail.getBody()+";"+mail.getCreationtime().format(formatter)+"\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -56,6 +71,7 @@ public class MailStoreFile implements MailStore {
                 messages.add(new Message(subject, sender, receiver,body, LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
             }
         }
+        mailFileReader.close();
 
 
         return messages;
