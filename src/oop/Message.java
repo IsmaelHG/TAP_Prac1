@@ -1,15 +1,11 @@
 package oop;
-
-import oop.User;
-
-
-/***
- *
- *
- *
- */
 import java.time.LocalDateTime;
 
+/**
+ *
+ * This class will store the representation of a single message
+ *
+ */
 public class Message {
     private String subject;
     private String sender, receiver;
@@ -18,11 +14,13 @@ public class Message {
 
     /**
      *
-     * @param subject
-     * @param sender
-     * @param receiver
-     * @param body
-     * @param creationtime
+     * Message constructor
+     *
+     * @param subject Subject of the message
+     * @param sender Sender of the message
+     * @param receiver Receiver of the message
+     * @param body Body of the message
+     * @param creationtime Date of message creation
      */
     public Message(String subject, String sender, String receiver, String body, LocalDateTime creationtime) {
         this.subject = subject;
@@ -34,7 +32,9 @@ public class Message {
 
     /**
      *
-     * @return
+     * Getter
+     *
+     * @return Subject of the message
      */
     public String getSubject() {
         return subject;
@@ -42,7 +42,9 @@ public class Message {
 
     /**
      *
-     * @return
+     * Getter
+     *
+     * @return Sender of the message
      */
     public String getSender() {
         return sender;
@@ -50,7 +52,9 @@ public class Message {
 
     /**
      *
-     * @return
+     * Getter
+     *
+     * @return Receiver of the message
      */
     public String getReceiver() {
         return receiver;
@@ -58,7 +62,9 @@ public class Message {
 
     /**
      *
-     * @return
+     * Getter
+     *
+     * @return Body of the message
      */
     public String getBody() {
         return body;
@@ -66,9 +72,21 @@ public class Message {
 
     /**
      *
-     * @return
+     * Getter
+     *
+     * @return Date of message creation
      */
     public LocalDateTime getCreationtime() {
         return creationtime;
+    }
+
+    /**
+     *
+     * Method for safely cloning the message
+     *
+     * @return cloned messsage
+     */
+    public Message clone() {
+        return new Message(this.subject,this.sender,this.receiver,this.body,this.creationtime);
     }
 }

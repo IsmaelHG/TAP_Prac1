@@ -9,21 +9,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-import java.util.logging.FileHandler;
 
 public class MailStoreFile implements MailStore {
     String filename;
 
+    /**
+     * MailStore (File version) constructor.
+     *
+     * @param filename name of the file that will store all the messages (in plain text)
+     */
     public void MailStore(String filename) {
         this.filename=filename;
     }
 
-
-    /**
-     * @param mail
-     */
     @Override
     public void SendMail(Message mail) {
+        // We open the file and prepare it to be written in append mode
         File mailFile = new File(this.filename);
         FileWriter fr = null;
         try {
@@ -32,23 +33,29 @@ public class MailStoreFile implements MailStore {
             e.printStackTrace();
         }
         BufferedWriter br = new BufferedWriter(fr);
+
+        // We establish the format to represent the message send date as a text
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         try {
+            // We write the message, every field is delimited with a ";" and the message will end with a newline marker
             br.write(mail.getSubject()+";"+mail.getSender()+";"+mail.getReceiver()+";"+mail.getBody()+";"+mail.getCreationtime().format(formatter)+"\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        // We finished writing the file
+        try {
+            fr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    /**
-     * @param username
-     * @return
-     */
     @Override
     public List<Message> GetMail(String username) {
+        // We open the file and prepare it to be read from the beginning
         List<Message> messages = new LinkedList<>();
         File mailFile = new File(this.filename);
         Scanner mailFileReader = null;
@@ -59,6 +66,7 @@ public class MailStoreFile implements MailStore {
             return null;
         }
 
+        // Read every line of the text file and treat it as an individual message
         while (mailFileReader.hasNextLine()) {
             String message = mailFileReader.nextLine();
             StringTokenizer tk = new StringTokenizer(message,";");
@@ -71,6 +79,8 @@ public class MailStoreFile implements MailStore {
                 messages.add(new Message(subject, sender, receiver,body, LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
             }
         }
+
+        // We finished reading the file
         mailFileReader.close();
 
 

@@ -2,8 +2,7 @@ package oop;
 
 /***
  *
- *
- *
+ * This class will store the representation of a User
  *
  */
 public class User {
@@ -13,9 +12,11 @@ public class User {
 
     /**
      *
-     * @param username
-     * @param name
-     * @param yearofbirth
+     * User constructor.
+     *
+     * @param username Username
+     * @param name Personal name
+     * @param yearofbirth Year of birth of the user (must be after 1899 and before the next year of this User creation)
      */
     public User(String username, String name, int yearofbirth) {
         this.username = username;
@@ -25,7 +26,9 @@ public class User {
 
     /**
      *
-     * @return
+     * Getter
+     *
+     * @return Username of this account
      */
     public String getUsername() {
         return username;
@@ -33,7 +36,9 @@ public class User {
 
     /**
      *
-     * @return
+     * Getter
+     *
+     * @return Personal name of this account
      */
     public String getName() {
         return name;
@@ -41,7 +46,9 @@ public class User {
 
     /**
      *
-     * @return
+     * Getter
+     *
+     * @return Year of birth of the user
      */
     public int getYearofbirth() {
         return yearofbirth;
