@@ -10,27 +10,19 @@ import java.util.List;
  *
  *
  */
-public abstract class MailStore {
+public interface MailStore {
 
 
     /**
      *
      */
-    public void SendMail (Message mail) {
-
-
-    }
+    public abstract void SendMail (Message mail);
 
     /**
      *
      * @return
      */
-    public List<Message> GetMail (String username) {
-
-
-        return null;
-    }
-
+    public abstract List<Message> GetMail (String username);
 
 
 }
