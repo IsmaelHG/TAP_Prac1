@@ -25,7 +25,7 @@ public class SystemTest {
         mail.RetrieveMailBox("Pepito420").UpdateMail();
 
 
-        for (Message m : Pepitobox.ListMail()) {
+        for (Message m : Pepitobox) {
             System.out.println(m+"\n\n");
         }
 
@@ -34,6 +34,21 @@ public class SystemTest {
         for (Message m : Pepitobox.FilterMail(message -> message.getSender().equals("XxX_Pepe_XxX"))) {
             System.out.println(m+"\n\n");
         }
+
+        System.out.println("\n\n");
+
+        for (Message m : mail.FilterAllMessages(message -> message.getSender().equals("XxX_Pepe_XxX") && message.getBody().contains("buenas"))) {
+            System.out.println(m+"\n\n");
+        }
+
+        System.out.println("\n\n");
+
+        for (Message m : mail.GetAllMessages()) {
+            System.out.println(m+"\n\n");
+        }
+
+
+
 
 
     }
