@@ -1,5 +1,6 @@
 package oop;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -86,7 +87,19 @@ public class Message {
      *
      * @return cloned messsage
      */
+    @Override
     public Message clone() {
         return new Message(this.subject,this.sender,this.receiver,this.body,this.creationtime);
+    }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return "Sender: "+this.sender+"\n"
+                +"Receiver: "+this.receiver+"\n"
+                +"Send date: "+this.creationtime.format(formatter)+"\n"
+                +"Subject: "+this.subject+"\n"
+                +"Body:\n"
+                +this.body;
     }
 }

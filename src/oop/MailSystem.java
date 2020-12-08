@@ -41,7 +41,8 @@ public class MailSystem {
      */
     public MailBox CreateUser (String username, String name, int yearofbirth) {
         users.put(username, new User(username, name, yearofbirth));
-        return mailboxes.put(users.get(username).getUsername(), new MailBox(users.get(username).getUsername(), this.mailstore));
+        mailboxes.put(users.get(username).getUsername(), new MailBox(users.get(username).getUsername(), this.mailstore));
+        return mailboxes.get(users.get(username).getUsername());
     }
 
     /**

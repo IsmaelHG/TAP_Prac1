@@ -14,7 +14,7 @@ public class MailStoreMemory implements MailStore {
      * MailStore (Memory version) constructor. Every message will be stored in memory through an internal list.
      *
      */
-    public void MailStore() {
+    public MailStoreMemory() {
         mailList = new LinkedList<Message>();
     }
 
