@@ -18,7 +18,7 @@ public class MailStoreFile implements MailStore {
      *
      * @param filename name of the file that will store all the messages (in plain text)
      */
-    public void MailStore(String filename) {
+    public MailStoreFile(String filename) {
         this.filename=filename;
     }
 

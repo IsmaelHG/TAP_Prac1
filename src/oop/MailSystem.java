@@ -3,6 +3,7 @@ package oop;
 import oop.MailStore.MailStore;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -56,6 +57,9 @@ public class MailSystem {
         return mailboxes.get(users.get(username).getUsername());
     }
 
+    public User RetrieveUser (String username) {
+        return users.get(username);
+    }
     /**
      *
      * This operation will get a list of every message sent on this system
@@ -130,11 +134,10 @@ public class MailSystem {
      *
      * This operation will group a list of messages with an specific subject
      *
-     * @param subject Subject of the message
      * @return LinkedList of messages with this subject
      */
-    public List<Message> groupMessagesPerSubject (String subject) {
-        return FilterAllMessages(message -> message.getSubject().equals(subject));
+    public Map<String, List<Message> > groupMessagesPerSubject () {
+        return GetAllMessages().stream().collect( Collectors.groupingBy(Message::getSubject) );
     }
 
     /**
