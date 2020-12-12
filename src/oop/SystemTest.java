@@ -4,6 +4,7 @@ import oop.MailStore.MailStore;
 import oop.MailStore.MailStoreFile;
 import oop.MailStore.MailStoreMemory;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -18,14 +19,14 @@ public class SystemTest {
         MailBox pepebox = mail.CreateUser("XxX_Pepe_XxX", "Pepe", 2000);
         MailBox franbox =mail.CreateUser("fran1980", "Francisco", 1980);
 
-        Pepitobox.SendMail("Pepito420","Hola","Muy buenas");
-        Pepitobox.SendMail("fran1980","adfs","Muy buenas");
-        pepebox.SendMail("Pepito420","ADFS","Muy buenas");
-        pepebox.SendMail("fran1980","adfs","Muy buenas");
-        franbox.SendMail("XxX_Pepe_XxX","jajajaja","Muy buenas");
-        franbox.SendMail("fran1980","Hola","Muy buenas");
-        Pepitobox.SendMail("XxX_Pepe_XxX","Hola","Muy buenas");
-        franbox.SendMail("Pepito420","Hola","Muy buenas");
+        Pepitobox.SendMail("Pepito420","Hola","Muy buenas", LocalDateTime.now());
+        Pepitobox.SendMail("fran1980","adfs","Muy buenas", LocalDateTime.now());
+        pepebox.SendMail("Pepito420","ADFS","Muy buenas", LocalDateTime.now());
+        pepebox.SendMail("fran1980","adfs","Muy buenas", LocalDateTime.now());
+        franbox.SendMail("XxX_Pepe_XxX","jajajaja","Muy buenas", LocalDateTime.now());
+        franbox.SendMail("fran1980","Hola","Muy buenas", LocalDateTime.now());
+        Pepitobox.SendMail("XxX_Pepe_XxX","Hola","Muy buenas", LocalDateTime.now());
+        franbox.SendMail("Pepito420","Hola","Muy buenas", LocalDateTime.now());
 
         mail.RetrieveMailBox("Pepito420").UpdateMail();
 

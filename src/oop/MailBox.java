@@ -53,8 +53,8 @@ public class MailBox implements Iterable<Message> {
      * @param subject Subject of the message
      * @param body Body of the message
      */
-    public void SendMail (String destination, String subject, String body) {
-        this.mailstore.SendMail(new Message(subject, this.getUsername(), destination, body, LocalDateTime.now()));
+    public void SendMail (String destination, String subject, String body, LocalDateTime sendDate) {
+        this.mailstore.SendMail(new Message(subject, this.getUsername(), destination, body, sendDate));
     }
 
     /**
