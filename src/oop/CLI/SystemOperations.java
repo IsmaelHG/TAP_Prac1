@@ -9,6 +9,4 @@ public class SystemOperations {
         this.System = system;
     }
 
-
-
 }
