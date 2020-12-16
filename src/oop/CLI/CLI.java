@@ -1,5 +1,7 @@
 package oop.CLI;
 import oop.MailSystem;
+import oop.exceptions.AlreadyTakenUsernameException;
+
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -45,7 +47,12 @@ public class CLI {
                     System.out.println("Write the year of birth:");
                     int year = keyboard.nextInt();
 
-                    mail.CreateUser(user, name, year);
+                    try {
+                        mail.CreateUser(user, name, year);
+                    } catch (AlreadyTakenUsernameException e) {
+                        System.out.println(e);
+                    }
+
                     break;
 
                 case "2":

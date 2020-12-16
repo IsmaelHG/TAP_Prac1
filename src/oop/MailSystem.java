@@ -1,6 +1,8 @@
 package oop;
 
 import oop.MailStore.MailStore;
+import oop.exceptions.AlreadyTakenUsernameException;
+
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -40,7 +42,10 @@ public class MailSystem {
      * @param yearofbirth Year of birth of the user
      * @return Mailbox of the new user.
      */
-    public MailBox CreateUser (String username, String name, int yearofbirth) {
+    public MailBox CreateUser (String username, String name, int yearofbirth) throws AlreadyTakenUsernameException {
+        if (users.containsKey(username)) {
+            throw new AlreadyTakenUsernameException("Username: "+username+" is already taken!");
+        }
         users.put(username, new User(username, name, yearofbirth));
         mailboxes.put(users.get(username).getUsername(), new MailBox(users.get(username).getUsername(), this.mailstore));
         return mailboxes.get(users.get(username).getUsername());
