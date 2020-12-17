@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
  *
  */
 public class MailBox implements Iterable<Message> {
-    private List<Message> messages; // Internal list of messages retrieved from the MailStore
-    private final String username; // Unique username used for identification
-    private final MailStore mailstore; // Reference of the MailStore where the box will retrieve messages
+    protected List<Message> messages; // Internal list of messages retrieved from the MailStore
+    protected final String username; // Unique username used for identification
+    protected final MailStore mailstore; // Reference of the MailStore where the box will retrieve messages
 
 
     /**
