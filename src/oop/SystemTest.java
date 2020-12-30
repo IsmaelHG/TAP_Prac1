@@ -3,6 +3,7 @@ package oop;
 import oop.MailStore.MailStore;
 import oop.MailStore.MailStoreFile;
 import oop.MailStore.MailStoreMemory;
+import oop.exceptions.AlreadyTakenUsernameException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.StringTokenizer;
 
 public class SystemTest {
 
-    public static void main (String argv[]) {
+    public static void main (String argv[]) throws AlreadyTakenUsernameException {
+        
         MailStore mailstore = new MailStoreMemory();
         MailSystem mail = new MailSystem(mailstore);
 
