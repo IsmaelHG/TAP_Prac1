@@ -5,9 +5,9 @@ import redis.clients.jedis.*;
 public class redistest {
 
     public static void main(String[] args) {
-        Jedis jedis = new Jedis("192.168.1.149",6379);
-        jedis.set("foo", "bar");
-        String value = jedis.get("foo");
+        Jedis jedis = new Jedis("127.0.0.1",6379);
+        jedis.append("fodo", "bar");
+        String value = jedis.get("fodo");
 
         System.out.println(value);
     }
