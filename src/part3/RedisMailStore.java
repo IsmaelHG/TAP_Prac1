@@ -10,19 +10,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class MailStoreRedis implements MailStore {
+public class RedisMailStore implements MailStore {
     private final Jedis conn;
-    private static MailStoreRedis mymailstore;
+    private static RedisMailStore mymailstore;
 
-    public static MailStoreRedis getRedisMailStore (Jedis connect) {
+    public static RedisMailStore getRedisMailStore (Jedis connect) {
         if (mymailstore==null) {
-            mymailstore = new MailStoreRedis(connect);
+            mymailstore = new RedisMailStore(connect);
         }
         return mymailstore;
     }
 
 
-    private MailStoreRedis(Jedis connect) {
+    private RedisMailStore(Jedis connect) {
         this.conn=connect;
     }
 
