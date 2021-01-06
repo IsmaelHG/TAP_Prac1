@@ -4,11 +4,12 @@ import part1.Message;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.Serializable;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class SpamUserFilter implements PropertyChangeListener {
+public class SpamUserFilter implements PropertyChangeListener, Serializable {
 
     /**
      * This method gets called when a bound property is changed.
@@ -21,7 +22,6 @@ public class SpamUserFilter implements PropertyChangeListener {
         Predicate<Message> filterSpam = message -> message.getSender().contains("spam");
         List<Message> lis = (List<Message>) evt.getNewValue();
 
-        ((List<Message>) evt.getOldValue()).clear();
         ((List<Message>) evt.getOldValue()).addAll(lis.stream().filter(filterSpam).collect(Collectors.toList()));
 
         lis.removeIf(filterSpam);

@@ -30,7 +30,6 @@ public class MailSystem {
         users = new Hashtable<>();
         mailboxes = new Hashtable<>();
         this.mailstore = mailstore;
-
     }
 
     /**

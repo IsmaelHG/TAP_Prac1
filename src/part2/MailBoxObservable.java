@@ -22,6 +22,7 @@ public class MailBoxObservable extends MailBox {
     public MailBoxObservable(String username, MailStore mailstore) {
         super(username, mailstore);
         spamList = new LinkedList<>();
+        support = new PropertyChangeSupport(this);
     }
 
     public void addFilter(PropertyChangeListener pcl) {
@@ -34,9 +35,21 @@ public class MailBoxObservable extends MailBox {
 
     @Override
     public void UpdateMail () {
+        List<Message> oldList = new LinkedList<>();
         List<Message> newList = super.mailstore.GetMail(super.username).stream().sorted((x, y)->x.getCreationtime().compareTo(y.getCreationtime())).collect(Collectors.toList());
-        support.firePropertyChange("messages", super.messages, newList);
-        spamList = super.messages;
+        if (support.hasListeners(null)) {
+            support.firePropertyChange(null, oldList, newList);
+            spamList = oldList;
+        }
         super.messages = newList;
+    }
+
+    public List<Message> getSpamList(){
+        List<Message> newList = new LinkedList<>();
+        for (Message m: this.spamList) {
+            newList.add(m);
+        }
+
+        return newList;
     }
 }

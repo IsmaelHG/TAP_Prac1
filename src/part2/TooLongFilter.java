@@ -21,7 +21,6 @@ public class TooLongFilter implements PropertyChangeListener {
         Predicate<Message> filterLongBody = message -> message.getBody().length() > 20;
         List<Message> lis = (List<Message>) evt.getNewValue();
 
-        ((List<Message>) evt.getOldValue()).clear();
         ((List<Message>) evt.getOldValue()).addAll(lis.stream().filter(filterLongBody).collect(Collectors.toList()));
 
         lis.removeIf(filterLongBody);
