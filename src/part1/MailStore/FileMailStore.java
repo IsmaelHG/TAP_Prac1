@@ -46,6 +46,7 @@ public class FileMailStore implements MailStore {
 
         // We finished writing the file
         try {
+            br.close();
             fr.close();
         } catch (IOException e) {
             e.printStackTrace();

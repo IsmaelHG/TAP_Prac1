@@ -87,7 +87,11 @@ public class SystemTest {
             System.out.println(me+"\n\n");
         }
 
-        mailstore = new FileMailStore("mensajes.txt");
+        MailStore mailstoree = new FileMailStore("mensajes.txt");
+
+        for (Message me : mail.GetAllMessages()) {
+            mailstoree.SendMail(me);
+        }
 
     }
 }

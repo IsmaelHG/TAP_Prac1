@@ -17,9 +17,8 @@ public class CipherMessage extends Wrapper{
     public void CreateCipher() {
         String key = "IWantToPassTAP12";  // 128 bit key
         aesKey = new javax.crypto.spec.SecretKeySpec(key.getBytes(), "AES");
-        Cipher cipher = null;
         try {
-            cipher = Cipher.getInstance("AES");
+            this.cipher = Cipher.getInstance("AES");
         } catch (Exception e) {
             e.printStackTrace();
         }
