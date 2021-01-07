@@ -10,6 +10,12 @@ import part1.exceptions.AlreadyTakenUsernameException;
 
 import java.time.LocalDateTime;
 
+/***
+ *
+ * Main program for testing the filters.
+ *
+ *
+ */
 public class FilterTest {
     public static void main (String argv[]) throws AlreadyTakenUsernameException {
         MailStore mailstore = new MemMailStore();
@@ -20,12 +26,7 @@ public class FilterTest {
         MailBox spambox = mail.CreateUser("spammer", "Spam", 1980);
 
         Pepitobox.SendMail("Pepito420", "Hola", "Student marks", LocalDateTime.now());
-        Pepitobox.SendMail("fran1980", "adfs", "Muy buenas", LocalDateTime.now());
         pepebox.SendMail("Pepito420", "ADFS", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", LocalDateTime.now());
-        pepebox.SendMail("fran1980", "adfs", "Muy buenas", LocalDateTime.now());
-        spambox.SendMail("XxX_Pepe_XxX", "jajajaja", "Muy buenas", LocalDateTime.now());
-        spambox.SendMail("fran1980", "Hola", "Muy buenas", LocalDateTime.now());
-        Pepitobox.SendMail("XxX_Pepe_XxX", "Hola", "Muy buenas", LocalDateTime.now());
         spambox.SendMail("Pepito420", "Hola", "Muy buenas", LocalDateTime.now());
 
         MailBox Pepitoboxfilter = new MailBoxObservable("Pepito420", mailstore);
@@ -80,10 +81,6 @@ public class FilterTest {
         for (Message m : ((MailBoxObservable) Pepitoboxfilter).getSpamList()) {
             System.out.println(m+"\n\n");
         }
-
-
-
-
 
     }
 }

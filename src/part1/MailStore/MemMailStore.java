@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/***
+ *
+ * MailStore implementation via memory. Messages will be lost when the application exits
+ *
+ */
 public class MemMailStore implements MailStore {
     private List<Message> mailList;
 

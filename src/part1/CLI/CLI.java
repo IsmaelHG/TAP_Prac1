@@ -5,11 +5,15 @@ import part1.exceptions.AlreadyTakenUsernameException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+/***
+ * CLI Application
+ *
+ *
+ */
 public class CLI {
     private MailSystem mail;
-    private SystemOperations operations;
 
-    public void ShowSystemMenu() {
+    private void ShowSystemMenu() {
         System.out.println("Choose a command option:");
         System.out.println("1. createuser <username> <name> <year of birth>");
         System.out.println("2. filter (contains <word>) or (lessthan <n>)");
@@ -17,7 +21,7 @@ public class CLI {
         System.out.println("4. exit");
     }
 
-    public void ShowUserMenu() {
+    private void ShowUserMenu() {
         System.out.println("Choose a command option:");
         System.out.println("1. send <username of destination> <subject> <body>");
         System.out.println("2. update");
@@ -27,11 +31,20 @@ public class CLI {
         System.out.println("6. logout");
     }
 
+    /**
+     * CLI Constructor
+     *
+     * @param mailsys MailSystem used for this CLI
+     */
     public CLI(MailSystem mailsys) {
-        this.operations = new SystemOperations(mailsys);
         this.mail = mailsys;
     }
 
+    /**
+     *
+     * Main CLI Method
+     *
+     */
     public void CLISystem() {
         ShowSystemMenu();
         Scanner keyboard = new Scanner(System.in);

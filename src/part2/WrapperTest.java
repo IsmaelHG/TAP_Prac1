@@ -12,6 +12,12 @@ import part2.Strategies.ReverseMessage;
 
 import java.time.LocalDateTime;
 
+/***
+ *
+ * Main program for testing the wrappers.
+ *
+ *
+ */
 public class WrapperTest {
 
     public static void main (String argv[]) throws AlreadyTakenUsernameException {

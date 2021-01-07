@@ -10,6 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/***
+ *
+ * MailBox with observable pattern
+ *
+ */
 public class MailBoxObservable extends MailBox {
     private PropertyChangeSupport support;
     private List<Message> spamList;
@@ -25,10 +30,22 @@ public class MailBoxObservable extends MailBox {
         support = new PropertyChangeSupport(this);
     }
 
+    /**
+     *
+     * Add filter listener to the mailbox
+     *
+     * @param pcl PropertyChangeListener
+     */
     public void addFilter(PropertyChangeListener pcl) {
         this.support.addPropertyChangeListener(pcl);
     }
 
+    /**
+     *
+     * Remove filter listener to the mailbox
+     *
+     * @param pcl PropertyChangeListener
+     */
     public void removeFilter(PropertyChangeListener pcl) {
         this.support.removePropertyChangeListener(pcl);
     }
@@ -44,6 +61,12 @@ public class MailBoxObservable extends MailBox {
         super.messages = newList;
     }
 
+    /**
+     *
+     * Method to get the spamlist
+     *
+     * @return spamList
+     */
     public List<Message> getSpamList(){
         List<Message> newList = new LinkedList<>();
         for (Message m: this.spamList) {

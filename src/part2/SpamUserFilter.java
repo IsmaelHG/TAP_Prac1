@@ -9,7 +9,12 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class SpamUserFilter implements PropertyChangeListener, Serializable {
+/***
+ *
+ * This will filter every message whose sender username is "spam"
+ *
+ */
+public class SpamUserFilter implements PropertyChangeListener {
 
     /**
      * This method gets called when a bound property is changed.

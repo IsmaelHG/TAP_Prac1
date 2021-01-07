@@ -6,9 +6,20 @@ import part1.Message;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ *
+ * Abstract Wrapped implemented with decorator pattern to wrap the body of
+ * every message
+ *
+ */
 public abstract class Wrapper implements MailStore {
     protected MailStore mailst;
 
+    /**
+     * Wrapper constructor
+     *
+     * @param mailstr MailStore to decorate
+     */
     public Wrapper(MailStore mailstr) {
         this.mailst = mailstr;
     }
@@ -37,8 +48,22 @@ public abstract class Wrapper implements MailStore {
         return WrappedMessages;
     }
 
+    /***
+     *
+     * Method to encode the body of a message
+     *
+     * @param body String of the message body
+     * @return Encoded string
+     */
     public abstract String MessageWrapper(String body);
 
+    /***
+     *
+     * Method to decode the body of a message
+     *
+     * @param body String of the encoded message body
+     * @return Decoded string
+     */
     public abstract String MessageUnWrapper(String body);
 
 }

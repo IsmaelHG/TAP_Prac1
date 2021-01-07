@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/***
+ *
+ * This will filter every message with more than 20 words
+ *
+ */
 public class TooLongFilter implements PropertyChangeListener {
 
     /**

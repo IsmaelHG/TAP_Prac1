@@ -153,7 +153,7 @@ public class MailSystem {
      */
     public int countWordsFromName (String name) {
         int total = 0;
-        Predicate<Message> filterSenderName = message -> message.getSender().equals(name);
+        Predicate<Message> filterSenderName = message -> RetrieveUser(message.getSender()).getName().equals(name);
 
         for (Message mail : FilterAllMessages(filterSenderName)) {
             StringTokenizer tokens = new StringTokenizer(mail.getBody());

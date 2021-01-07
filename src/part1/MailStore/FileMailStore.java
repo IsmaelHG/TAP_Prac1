@@ -10,6 +10,13 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+/***
+ *
+ * MailStore implementation via files. It's not necessary to use an already existing file
+ *
+ * New messages will be appended to the file and read from it.
+ *
+ */
 public class FileMailStore implements MailStore {
     String filename;
 

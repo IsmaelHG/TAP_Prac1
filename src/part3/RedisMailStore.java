@@ -10,10 +10,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/***
+ *
+ * MailStore implementation via Redis.
+ * Messages will be sent and get from a Redis server.
+ *
+ * This class is Singleton
+ */
 public class RedisMailStore implements MailStore {
     private final Jedis conn;
     private static RedisMailStore mymailstore;
 
+    /***
+     *
+     * Gets the current MailStore instance. If it doesn't exist, it will create one
+     *
+     * @param connect Jedis connection
+     * @return RedisMailStore
+     */
     public static RedisMailStore getRedisMailStore (Jedis connect) {
         if (mymailstore==null) {
             mymailstore = new RedisMailStore(connect);
@@ -31,7 +45,7 @@ public class RedisMailStore implements MailStore {
     public void SendMail(Message mail) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        this.conn.append(mail.getReceiver(),mail.getSubject()+";"+mail.getSender()+";"+mail.getBody()+";"+mail.getCreationtime().format(formatter));
+        this.conn.lpush(mail.getReceiver(),mail.getSubject()+";"+mail.getSender()+";"+mail.getBody()+";"+mail.getCreationtime().format(formatter));
 
 
     }

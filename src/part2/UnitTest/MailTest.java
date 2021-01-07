@@ -8,6 +8,11 @@ import part1.User;
 import java.time.LocalDateTime;
 import java.time.Month;
 
+/***
+ *
+ * Unit test for all the classes implemented in part2
+ *
+ */
 public class MailTest {
 
     public class main {

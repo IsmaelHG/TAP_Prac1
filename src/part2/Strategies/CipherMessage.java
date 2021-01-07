@@ -5,15 +5,29 @@ import part1.MailStore.MailStore;
 import javax.crypto.Cipher;
 import java.util.Base64;
 
+/***
+ *  MailStore that wraps messages by ciphering using AES with the key "IWantToPassTAP12"
+ *
+ */
 public class CipherMessage extends Wrapper{
     private Cipher cipher;
     private java.security.Key aesKey;
 
+    /**
+     * CipherMessage constructor
+     *
+     * @param mail MailStore to send and get wrapped messages
+     */
     public CipherMessage(MailStore mail) {
         super(mail);
         CreateCipher();
     }
 
+    /**
+     *
+     * Initialize the AES cipher. Key is "IWantToPassTAP12"
+     *
+     */
     public void CreateCipher() {
         String key = "IWantToPassTAP12";  // 128 bit key
         aesKey = new javax.crypto.spec.SecretKeySpec(key.getBytes(), "AES");

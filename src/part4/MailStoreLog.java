@@ -3,6 +3,11 @@ package part4;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+/**
+ *
+ * InvocationHandler for the mailstore
+ *
+ */
 public class MailStoreLog implements InvocationHandler {
 
     @Override
