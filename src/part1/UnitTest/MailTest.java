@@ -4,15 +4,18 @@ import part1.MailBox;
 import part1.MailStore.FileMailStore;
 import part1.MailStore.MailStore;
 import part1.MailStore.MemMailStore;
+import part1.MailSystem;
 import part1.Message;
 import part1.User;
 import org.junit.Assert;
 import org.junit.Test;
+import part1.exceptions.AlreadyTakenUsernameException;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 /***
  *
@@ -84,6 +87,22 @@ public class MailTest {
         }
 
         @Test
+        public void testMailBoxFilterMail() {
+            MailStore mailstoretest = new MemMailStore();
+            MailBox mailboxtest = new MailBox("User1",mailstoretest);
+            LocalDateTime timetest = LocalDateTime.of(2018, Month.JULY, 29, 19, 30, 40);
+            Predicate<Message> filter = message -> message.getBody().equals("AAAA");
+
+            mailboxtest.SendMail("User1","Subject","BBBB",timetest);
+            mailboxtest.SendMail("User1","Subject","DDDD",timetest);
+            mailboxtest.SendMail("User1","Subject","AAAA",timetest);
+            mailboxtest.SendMail("User1","Subject","CCCC",timetest);
+            List<Message> messagelist = mailboxtest.FilterMail(filter);
+
+            Assert.assertEquals(3, messagelist.size()); // Should be only three messages
+        }
+
+        @Test
         public void testMemMailStore() {
             MailStore mailstoretest = new MemMailStore();
             LocalDateTime timetest = LocalDateTime.of(2018, Month.JULY, 29, 19, 30, 40);
@@ -115,7 +134,34 @@ public class MailTest {
         }
 
         @Test
-        public void testMailSystem() {
+        public void testMailSystemUsersMailbox() throws AlreadyTakenUsernameException {
+            MailStore mailstoretest = new MemMailStore();
+            MailSystem mail = new MailSystem(mailstoretest);
+
+            MailBox mailboxtest = mail.CreateUser("User1","User",2000);
+            Assert.assertEquals(mailboxtest, mail.RetrieveMailBox("User1"));
+            Assert.assertEquals("User1", mail.RetrieveUser("User1").getUsername());
+        }
+
+        @Test
+        public void testMailSystemMessages() throws AlreadyTakenUsernameException {
+            MailStore mailstoretest = new MemMailStore();
+            MailSystem mail = new MailSystem(mailstoretest);
+
+            MailBox mailboxtest1 = mail.CreateUser("User1","User",2000);
+            MailBox mailboxtest2 = mail.CreateUser("User2","User",1999);
+            LocalDateTime timetest = LocalDateTime.of(2018, Month.JULY, 29, 19, 30, 40);
+
+            mailboxtest1.SendMail("User2","Subject","BBBB",timetest);
+            mailboxtest2.SendMail("User1","Subject","DDDD",timetest);
+            mailboxtest1.SendMail("User2","Subject","AAAA",timetest);
+            mailboxtest2.SendMail("User1","Subject","CCCC",timetest);
+
+            List<Message> messageList = mail.GetAllMessages();
+            Assert.assertEquals(messageList.size(),4);
+            Assert.assertEquals(messageList.size(),mail.CountAllMesssages());
+            Assert.assertEquals(mail.GetAllUsers().size(),2);
+
 
         }
 

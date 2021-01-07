@@ -13,7 +13,7 @@ import java.time.Month;
  * Unit test for all the classes implemented in part2
  *
  */
-public class MailTest {
+public class PatternTest {
 
     public static class main {
 
