@@ -4,7 +4,6 @@ import part1.Message;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.Serializable;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;

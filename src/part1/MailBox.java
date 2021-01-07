@@ -42,7 +42,7 @@ public class MailBox implements Iterable<Message> {
      */
     public void UpdateMail () {
         // The message list will be retrieved from the MailStore and sorted by creation time through streams.
-        this.messages = mailstore.GetMail(this.username).stream().sorted((x,y)->x.getCreationtime().compareTo(y.getCreationtime())).collect(Collectors.toList());
+        this.messages = mailstore.GetMail(this.username).stream().sorted(Comparator.comparing(Message::getCreationtime)).collect(Collectors.toList());
     }
 
     /**
@@ -64,7 +64,7 @@ public class MailBox implements Iterable<Message> {
      * @return A list of every message retrieved from the mail store
      */
     public List<Message> ListMail () {
-        List<Message> clonedList = new LinkedList<Message>();
+        List<Message> clonedList = new LinkedList<>();
 
         // The return list will be a clone of the internal list for integrity purposes.
         for (Message mail : messages) {
@@ -79,7 +79,7 @@ public class MailBox implements Iterable<Message> {
      * MailBox operation for getting a sorted list of messages by a given order condition.
      *
      * @param compare Comparator used of establishing the list order
-     * @return
+     * @return List of messages (sorted)
      */
     public List<Message> GetSortedMail (Comparator<Message> compare) {
         return mailstore.GetMail(this.username).stream().sorted(compare).collect(Collectors.toList());
@@ -90,7 +90,7 @@ public class MailBox implements Iterable<Message> {
      * MailBox operation for getting a list of messages that fulfill a given condition
      *
      * @param condition Predicate used for filtering the messages
-     * @return
+     * @return List of messages (filtered)
      */
     public List<Message> FilterMail (Predicate<Message> condition) {
         return mailstore.GetMail(this.username).stream().filter(condition).collect(Collectors.toList());

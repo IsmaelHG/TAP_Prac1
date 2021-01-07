@@ -6,6 +6,7 @@ import part1.Message;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  *
  */
 public class MailBoxObservable extends MailBox {
-    private PropertyChangeSupport support;
+    private final PropertyChangeSupport support;
     private List<Message> spamList;
     /**
      * MailBox constructor.
@@ -53,7 +54,7 @@ public class MailBoxObservable extends MailBox {
     @Override
     public void UpdateMail () {
         List<Message> oldList = new LinkedList<>();
-        List<Message> newList = super.mailstore.GetMail(super.username).stream().sorted((x, y)->x.getCreationtime().compareTo(y.getCreationtime())).collect(Collectors.toList());
+        List<Message> newList = super.mailstore.GetMail(super.username).stream().sorted(Comparator.comparing(Message::getCreationtime)).collect(Collectors.toList());
         if (support.hasListeners(null)) {
             support.firePropertyChange(null, oldList, newList);
             spamList = oldList;
@@ -68,10 +69,7 @@ public class MailBoxObservable extends MailBox {
      * @return spamList
      */
     public List<Message> getSpamList(){
-        List<Message> newList = new LinkedList<>();
-        for (Message m: this.spamList) {
-            newList.add(m);
-        }
+        List<Message> newList = new LinkedList<>(this.spamList);
 
         return newList;
     }

@@ -10,6 +10,8 @@ import part3.factories.MailStoreMemoryFactory;
 import part3.factories.MailStoreRedisFactory;
 import part3.factories.MailStoreWrappedFactory;
 
+import java.util.Scanner;
+
 /**
  *
  * Main program to create a specific factory, populate with diverse messages and print all of them
@@ -24,13 +26,14 @@ public class FactoriesTest {
         int op=0;
         MailStore mailstore = null;
         MailSystem mail;
+        Scanner keyboard = new Scanner(System.in);
 
-        while (op <1 || op > 3) {
+        while ( (op < 1) || (op > 3) ) {
             System.out.println("Please select a factory:");
             System.out.println("1. Memory factory");
             System.out.println("2. Wrapped factory");
             System.out.println("3. Redis factory (make sure redis server is running at 127.0.0.1:6379)");
-            
+            op = keyboard.nextInt();
             switch (op) {
                 case 1:
                     mailstore = memoryfactory.createMailStore();

@@ -6,9 +6,9 @@ package part1;
  *
  */
 public class User {
-    private String username;
-    private String name;
-    private int yearofbirth;
+    private final String username;
+    private final String name;
+    private final int yearofbirth;
 
     /**
      *

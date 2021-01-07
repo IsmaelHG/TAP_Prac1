@@ -3,7 +3,6 @@ package part2;
 import part1.MailBox;
 import part1.MailStore.FileMailStore;
 import part1.MailStore.MailStore;
-import part1.MailStore.MemMailStore;
 import part1.MailSystem;
 import part1.Message;
 import part1.exceptions.AlreadyTakenUsernameException;
@@ -20,7 +19,7 @@ import java.time.LocalDateTime;
  */
 public class WrapperTest {
 
-    public static void main (String argv[]) throws AlreadyTakenUsernameException {
+    public static void main (String[] argv) throws AlreadyTakenUsernameException {
         MailStore mailstore = new FileMailStore("notwrapped.txt");
         MailSystem mail = new MailSystem(mailstore);
 

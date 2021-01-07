@@ -8,12 +8,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 
-/**
- *
- * Annotation for the MailSystemConfig
- *
- */
 public @interface Config {
-    public String store();
-    public boolean log() default false;
+    String store();
+    boolean log() default false;
 }

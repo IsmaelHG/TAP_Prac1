@@ -6,12 +6,7 @@ import part1.MailSystem;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 
-@Config(store="part1.MemMailStore", log=false)
-/**
- *
- * MailSystem implementation with dependency injection mechanisms by using an annotation
- *
- */
+@Config(store="part1.MemMailStore", log=true)
 public class MailSystemConfig extends MailSystem {
 
     /**

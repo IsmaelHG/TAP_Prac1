@@ -21,18 +21,18 @@ import java.util.List;
  */
 public class MailTest {
 
-    public class main {
+    public static class main {
 
         @Test
         public void testMessage() {
             LocalDateTime timetest = LocalDateTime.of(2018, Month.JULY, 29, 19, 30, 40);
             Message messagetest = new Message("Hola", "UsuarioA", "UsuarioB", "Muy buenas", timetest);
             System.out.println("-> TESTING MESSAGE CREATION...");
-            Assert.assertTrue(messagetest.getSubject().equals("Hola"));
-            Assert.assertTrue(messagetest.getSubject().equals("UsuarioA"));
-            Assert.assertTrue(messagetest.getSubject().equals("UsuarioB"));
-            Assert.assertTrue(messagetest.getSubject().equals("Muy buenas"));
-            Assert.assertTrue(messagetest.getCreationtime().equals(timetest));
+            Assert.assertEquals("Hola", messagetest.getSubject());
+            Assert.assertEquals("UsuarioA", messagetest.getSubject());
+            Assert.assertEquals("UsuarioB", messagetest.getSubject());
+            Assert.assertEquals("Muy buenas", messagetest.getSubject());
+            Assert.assertEquals(messagetest.getCreationtime(), timetest);
             // Message should conserve all the parameters
         }
 
@@ -40,9 +40,9 @@ public class MailTest {
         public void testUser() {
             User usertest = new User("Pablo2000","Pablo",2000);
             System.out.println("-> TESTING USER CREATION...");
-            Assert.assertTrue(usertest.getUsername().equals("Pablo2000"));
-            Assert.assertTrue(usertest.getName().equals("Pablo"));
-            Assert.assertTrue(usertest.getYearofbirth()==2000);
+            Assert.assertEquals("Pablo2000", usertest.getUsername());
+            Assert.assertEquals("Pablo", usertest.getName());
+            Assert.assertEquals(2000, usertest.getYearofbirth());
             // User should conserve all the parameters
         }
 
@@ -56,11 +56,11 @@ public class MailTest {
             mailboxtest.UpdateMail();
             List<Message> messagelist = mailboxtest.ListMail();
 
-            Assert.assertTrue(messagelist.size()==1); // Should be only one message
-            Assert.assertTrue(messagelist.get(0).getBody().equals("Body")); // Message content should be the same
-            Assert.assertTrue(messagelist.get(0).getSender().equals("User1"));
-            Assert.assertTrue(messagelist.get(0).getSubject().equals("Subject"));
-            Assert.assertTrue(messagelist.get(0).getCreationtime().equals(timetest));
+            Assert.assertEquals(1, messagelist.size()); // Should be only one message
+            Assert.assertEquals("Body", messagelist.get(0).getBody()); // Message content should be the same
+            Assert.assertEquals("User1", messagelist.get(0).getSender());
+            Assert.assertEquals("Subject", messagelist.get(0).getSubject());
+            Assert.assertEquals(messagelist.get(0).getCreationtime(), timetest);
         }
 
         @Test
@@ -68,7 +68,7 @@ public class MailTest {
             MailStore mailstoretest = new MemMailStore();
             MailBox mailboxtest = new MailBox("User1",mailstoretest);
             LocalDateTime timetest = LocalDateTime.of(2018, Month.JULY, 29, 19, 30, 40);
-            Comparator<Message> comparator = (x,y)->x.getBody().compareTo(y.getBody());
+            Comparator<Message> comparator = Comparator.comparing(Message::getBody);
 
             mailboxtest.SendMail("User1","Subject","BBBB",timetest);
             mailboxtest.SendMail("User1","Subject","DDDD",timetest);
@@ -76,11 +76,11 @@ public class MailTest {
             mailboxtest.SendMail("User1","Subject","CCCC",timetest);
             List<Message> messagelist = mailboxtest.GetSortedMail(comparator);
 
-            Assert.assertTrue(messagelist.size()==4); // Should be only four messages
-            Assert.assertTrue(messagelist.get(0).getBody().equals("AAAA")); // Should be sorted by body content
-            Assert.assertTrue(messagelist.get(1).getBody().equals("BBBB")); // Should be sorted by body content
-            Assert.assertTrue(messagelist.get(2).getBody().equals("CCCC")); // Should be sorted by body content
-            Assert.assertTrue(messagelist.get(3).getBody().equals("DDDD")); // Should be sorted by body content
+            Assert.assertEquals(4, messagelist.size()); // Should be only four messages
+            Assert.assertEquals("AAAA", messagelist.get(0).getBody()); // Should be sorted by body content
+            Assert.assertEquals("BBBB", messagelist.get(1).getBody()); // Should be sorted by body content
+            Assert.assertEquals("CCCC", messagelist.get(2).getBody()); // Should be sorted by body content
+            Assert.assertEquals("DDDD", messagelist.get(3).getBody()); // Should be sorted by body content
         }
 
         @Test
@@ -91,11 +91,11 @@ public class MailTest {
             mailstoretest.SendMail(new Message("Subject","User1","User1","Body",timetest));
             List<Message> messagelist = mailstoretest.GetMail("User1");
 
-            Assert.assertTrue(messagelist.size()==1); // Should be only one message
-            Assert.assertTrue(messagelist.get(0).getBody().equals("Body")); // Message content should be the same
-            Assert.assertTrue(messagelist.get(0).getSender().equals("User1"));
-            Assert.assertTrue(messagelist.get(0).getSubject().equals("Subject"));
-            Assert.assertTrue(messagelist.get(0).getCreationtime().equals(timetest));
+            Assert.assertEquals(1, messagelist.size()); // Should be only one message
+            Assert.assertEquals("Body", messagelist.get(0).getBody()); // Message content should be the same
+            Assert.assertEquals("User1", messagelist.get(0).getSender());
+            Assert.assertEquals("Subject", messagelist.get(0).getSubject());
+            Assert.assertEquals(messagelist.get(0).getCreationtime(), timetest);
 
         }
 
@@ -107,11 +107,11 @@ public class MailTest {
             mailstoretest.SendMail(new Message("Subject","User1","User1","Body",timetest));
             List<Message> messagelist = mailstoretest.GetMail("User1");
 
-            Assert.assertTrue(messagelist.size()==1); // Should be only one message
-            Assert.assertTrue(messagelist.get(0).getBody().equals("Body")); // Message content should be the same
-            Assert.assertTrue(messagelist.get(0).getSender().equals("User1"));
-            Assert.assertTrue(messagelist.get(0).getSubject().equals("Subject"));
-            Assert.assertTrue(messagelist.get(0).getCreationtime().equals(timetest));
+            Assert.assertEquals(1, messagelist.size()); // Should be only one message
+            Assert.assertEquals("Body", messagelist.get(0).getBody()); // Message content should be the same
+            Assert.assertEquals("User1", messagelist.get(0).getSender());
+            Assert.assertEquals("Subject", messagelist.get(0).getSubject());
+            Assert.assertEquals(messagelist.get(0).getCreationtime(), timetest);
         }
 
         @Test

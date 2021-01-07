@@ -71,7 +71,7 @@ public class MailSystem {
      * @return LinkedList of messages
      */
     public List<Message> GetAllMessages () {
-        List<Message> messages = new LinkedList<Message>();
+        List<Message> messages = new LinkedList<>();
 
         //
         for(String user: users.keySet()){
@@ -99,7 +99,7 @@ public class MailSystem {
      * @return LinkedList of messages that accomplish the condition
      */
     public List<Message> FilterAllMessages (Predicate<Message> condition) {
-        List<Message> messages = new LinkedList<Message>();
+        List<Message> messages = new LinkedList<>();
 
         for(String user: mailboxes.keySet()){
             messages.addAll(mailboxes.get(user).FilterMail(condition));

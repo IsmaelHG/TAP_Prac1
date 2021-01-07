@@ -14,7 +14,7 @@ import java.util.function.Predicate;
  *
  */
 public class MailBoxOperations {
-    private MailBox currentMailBox;
+    private final MailBox currentMailBox;
 
     /**
      *
@@ -23,7 +23,7 @@ public class MailBoxOperations {
      *
      * @param currentMailBox MailBox to operate
      */
-    public MailBoxOperations(String username, MailBox currentMailBox) {
+    public MailBoxOperations(MailBox currentMailBox) {
         this.currentMailBox = currentMailBox;
     }
 
@@ -51,7 +51,7 @@ public class MailBoxOperations {
      *
      * Method for returning a list of messages. Delegates to ListMail from MailBox
      *
-     * @return
+     * @return List of messages
      */
     public List<Message> ListMail() {
         return this.currentMailBox.ListMail();

@@ -13,14 +13,14 @@ import java.util.stream.Collectors;
  *
  */
 public class MemMailStore implements MailStore {
-    private List<Message> mailList;
+    private final List<Message> mailList;
 
     /**
      * MailStore (Memory version) constructor. Every message will be stored in memory through an internal list.
      *
      */
     public MemMailStore() {
-        mailList = new LinkedList<Message>();
+        mailList = new LinkedList<>();
     }
 
     @Override

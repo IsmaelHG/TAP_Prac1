@@ -33,7 +33,7 @@ public class SystemTest {
 
     }
 
-    public static void main (String argv[]) throws AlreadyTakenUsernameException {
+    public static void main (String[] argv) throws AlreadyTakenUsernameException {
 
         // Initialize the mail system with an in-memorymail store
         MailStore mailstore = new MemMailStore();

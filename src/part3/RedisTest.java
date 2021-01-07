@@ -2,14 +2,12 @@ package part3;
 
 import part1.MailBox;
 import part1.MailStore.MailStore;
-import part1.MailStore.MemMailStore;
 import part1.MailSystem;
 import part1.Message;
 import part1.SystemTest;
 import part1.exceptions.AlreadyTakenUsernameException;
 import part3.factories.MailStoreFactory;
 import part3.factories.MailStoreRedisFactory;
-import redis.clients.jedis.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +22,6 @@ import java.util.StringTokenizer;
 public class RedisTest {
 
     public static void main(String[] args) throws AlreadyTakenUsernameException {
-        Jedis jedis = new Jedis("192.168.1.149",6379);
 
         MailStoreFactory mailstorefact = new MailStoreRedisFactory();
         MailStore mailstore = mailstorefact.createMailStore();

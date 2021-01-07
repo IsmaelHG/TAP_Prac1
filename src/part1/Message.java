@@ -8,9 +8,10 @@ import java.time.format.DateTimeFormatter;
  *
  */
 public class Message {
-    private String subject;
-    private String sender, receiver;
-    private String body;
+    private final String subject;
+    private final String sender;
+    private final String receiver;
+    private final String body;
     private final LocalDateTime creationtime;
 
     /**

@@ -39,6 +39,7 @@ public class FileMailStore implements MailStore {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        assert fr != null;
         BufferedWriter br = new BufferedWriter(fr);
 
         // We establish the format to represent the message send date as a text
@@ -66,7 +67,7 @@ public class FileMailStore implements MailStore {
         // We open the file and prepare it to be read from the beginning
         List<Message> messages = new LinkedList<>();
         File mailFile = new File(this.filename);
-        Scanner mailFileReader = null;
+        Scanner mailFileReader;
         try {
             mailFileReader = new Scanner(mailFile);
         } catch (FileNotFoundException e) {
