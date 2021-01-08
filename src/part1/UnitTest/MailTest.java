@@ -11,6 +11,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import part1.exceptions.AlreadyTakenUsernameException;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Comparator;
@@ -32,9 +34,9 @@ public class MailTest {
             Message messagetest = new Message("Hola", "UsuarioA", "UsuarioB", "Muy buenas", timetest);
             System.out.println("-> TESTING MESSAGE CREATION...");
             Assert.assertEquals("Hola", messagetest.getSubject());
-            Assert.assertEquals("UsuarioA", messagetest.getSubject());
-            Assert.assertEquals("UsuarioB", messagetest.getSubject());
-            Assert.assertEquals("Muy buenas", messagetest.getSubject());
+            Assert.assertEquals("UsuarioA", messagetest.getSender());
+            Assert.assertEquals("UsuarioB", messagetest.getReceiver());
+            Assert.assertEquals("Muy buenas", messagetest.getBody());
             Assert.assertEquals(messagetest.getCreationtime(), timetest);
             // Message should conserve all the parameters
         }
@@ -99,7 +101,7 @@ public class MailTest {
             mailboxtest.SendMail("User1","Subject","CCCC",timetest);
             List<Message> messagelist = mailboxtest.FilterMail(filter);
 
-            Assert.assertEquals(3, messagelist.size()); // Should be only three messages
+            Assert.assertEquals(1, messagelist.size()); // Should be only one message
         }
 
         @Test
@@ -119,7 +121,11 @@ public class MailTest {
         }
 
         @Test
-        public void testFileMailStore() {
+        public void testFileMailStore() throws IOException {
+            File file = new File("filetest.txt");
+            if(file.exists()){
+                file.delete();
+            }
             MailStore mailstoretest = new FileMailStore("filetest.txt");
             LocalDateTime timetest = LocalDateTime.of(2018, Month.JULY, 29, 19, 30, 40);
 

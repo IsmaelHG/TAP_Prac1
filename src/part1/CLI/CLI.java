@@ -48,11 +48,12 @@ public class CLI {
      *
      */
     public void CLISystem() {
-        ShowSystemMenu();
         Scanner keyboard = new Scanner(System.in);
-        String inp = keyboard.nextLine();
+        String inp = "";
 
         while (!inp.equals("4")) {
+            ShowSystemMenu();
+            inp = keyboard.nextLine();
             switch (inp) {
                 case "1" -> {
                     System.out.println("Write the new username:");
@@ -60,8 +61,8 @@ public class CLI {
                     System.out.println("Write the personal name:");
                     String name = keyboard.nextLine();
                     System.out.println("Write the year of birth:");
-                    int year = keyboard.nextInt();
                     try {
+                        int year = Integer.parseInt(keyboard.nextLine());
                         mail.CreateUser(user, name, year);
                     } catch (AlreadyTakenUsernameException e) {
                         e.printStackTrace();
@@ -71,28 +72,32 @@ public class CLI {
                 case "3" -> {
                     System.out.println("Write the username to logas:");
                     String username = keyboard.nextLine();
-                    this.CLIUser(username);
+                    try {
+                        this.CLIUser(username);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                case "4" -> {
+                    System.out.println("Exiting the application. Bye!");
                 }
                 default -> System.out.println("Incorrect option, try again.");
             }
-            inp = keyboard.nextLine();
         }
-
-        System.out.println("Exiting the application. Bye!");
 
 
     }
 
     private void FilterMailSystem() {
-        System.out.println("Choose an option for filtering the mail:");
-        System.out.println("1. contains <word> : filters all messages that contain the word in the body or subject.");
-        System.out.println("2. lessthan <n> :filters messages that contain less than n words in the body.");
-        System.out.println("3. Exit filter menu");
-
         Scanner keyboard = new Scanner(System.in);
-        String inp = keyboard.nextLine();
+        String inp = "";
 
         while (!inp.equals("3")) {
+            System.out.println("Choose an option for filtering the mail:");
+            System.out.println("1. contains <word> : filters all messages that contain the word in the body or subject.");
+            System.out.println("2. lessthan <n> :filters messages that contain less than n words in the body.");
+            System.out.println("3. Exit filter menu");
+            inp = keyboard.nextLine();
             switch (inp) {
                 case "1" -> {
                     System.out.println("contains <word>: Write the <word>");
@@ -103,7 +108,7 @@ public class CLI {
                     System.out.println("lessthan <n>: Write the <n> word");
                     int nt;
                     try {
-                        nt = keyboard.nextInt();
+                        nt = Integer.parseInt(keyboard.nextLine());
                     } catch (Exception e) {
                         System.out.println("You must write a number!");
                         break;
@@ -111,22 +116,23 @@ public class CLI {
                     int finalNt = nt;
                     mail.FilterAllMessages(message -> new StringTokenizer(message.getSubject()).countTokens() == finalNt).forEach(System.out::println);
                 }
+                case "3" ->{
+                    System.out.println("Exiting filter menu");
+                }
                 default -> System.out.println("Incorrect option, try again.");
             }
-            inp = keyboard.nextLine();
         }
-
-        System.out.println("Exiting filter menu");
     }
 
     private void CLIUser(String Username) {
         MailBoxOperations usermail = new MailBoxOperations(mail.RetrieveMailBox(Username));
 
-        ShowUserMenu();
         Scanner keyboard = new Scanner(System.in);
-        String inp = keyboard.nextLine();
+        String inp = "";
 
         while (!inp.equals("6")) {
+            ShowUserMenu();
+            inp = keyboard.nextLine();
             switch (inp) {
                 case "1" -> {
                     System.out.println("Write the destination username: ");
@@ -136,6 +142,7 @@ public class CLI {
                     System.out.println("Write the body (no ';' or line jump allowed): ");
                     String body = keyboard.nextLine();
                     usermail.SendMessage(destination, subject, body);
+                    System.out.println("Message sent!");
                 }
                 case "2" -> {
                     usermail.UpdateMail();
@@ -144,52 +151,49 @@ public class CLI {
                 case "3" -> usermail.ListMail().forEach(System.out::println);
                 case "4" -> SortMailBox(usermail);
                 case "5" -> FilterMailBox(usermail);
+                case "6" -> System.out.println("Logging out from user "+Username+". Bye!");
                 default -> System.out.println("Incorrect option, try again.");
             }
-            inp = keyboard.nextLine();
         }
-
-        System.out.println("Logging out from user "+Username+". Bye!");
 
     }
 
     private void SortMailBox(MailBoxOperations usermail) {
-        System.out.println("Choose an option for sorting the mail:");
-        System.out.println("1. By sent time");
-        System.out.println("2. By sender username");
-        System.out.println("3. By receiver username");
-        System.out.println("4. By subject text");
-        System.out.println("5. By body text");
-        System.out.println("6. Exit sort menu");
 
         Scanner keyboard = new Scanner(System.in);
-        String inp = keyboard.nextLine();
+        String inp = "";
 
         while (!inp.equals("6")) {
+            System.out.println("Choose an option for sorting the mail:");
+            System.out.println("1. By sent time");
+            System.out.println("2. By sender username");
+            System.out.println("3. By receiver username");
+            System.out.println("4. By subject text");
+            System.out.println("5. By body text");
+            System.out.println("6. Exit sort menu");
+            inp = keyboard.nextLine();
             switch (inp) {
                 case "1" -> usermail.SortMail(Comparator.comparing(Message::getCreationtime)).forEach(System.out::println);
                 case "2" -> usermail.SortMail(Comparator.comparing(Message::getSender)).forEach(System.out::println);
                 case "3" -> usermail.SortMail(Comparator.comparing(Message::getReceiver)).forEach(System.out::println);
                 case "4" -> usermail.SortMail(Comparator.comparing(Message::getSubject)).forEach(System.out::println);
                 case "5" -> usermail.SortMail(Comparator.comparing(Message::getBody)).forEach(System.out::println);
+                case "6" -> System.out.println("Exiting sorting menu");
                 default -> System.out.println("Incorrect option, try again.");
             }
-            inp = keyboard.nextLine();
         }
-
-        System.out.println("Exiting sorting menu");
     }
 
     private void FilterMailBox(MailBoxOperations usermail) {
-        System.out.println("Choose an option for filtering the mail:");
-        System.out.println("1. contains <word> : filters all messages that contain the word in the body or subject.");
-        System.out.println("2. lessthan <n> :filters messages that contain less than n words in the body.");
-        System.out.println("3. Exit filter menu");
-
         Scanner keyboard = new Scanner(System.in);
-        String inp = keyboard.nextLine();
+        String inp = "";
 
         while (!inp.equals("3")) {
+            System.out.println("Choose an option for filtering the mail:");
+            System.out.println("1. contains <word> : filters all messages that contain the word in the body or subject.");
+            System.out.println("2. lessthan <n> :filters messages that contain less than n words in the body.");
+            System.out.println("3. Exit filter menu");
+            inp = keyboard.nextLine();
             switch (inp) {
                 case "1" -> {
                     System.out.println("contains <word>: Write the <word>");
@@ -197,23 +201,21 @@ public class CLI {
                     usermail.FilterMail(message -> message.getSubject().contains(wordt) || message.getBody().contains(wordt)).forEach(System.out::println);
                 }
                 case "2" -> {
-                    System.out.println("lessthan <n>: Write the <n> word");
+                    System.out.println("lessthan <n>: Write the <n>");
                     int nt;
                     try {
-                        nt = keyboard.nextInt();
+                        nt = Integer.parseInt(keyboard.nextLine());
                     } catch (Exception e) {
                         System.out.println("You must write a number!");
                         break;
                     }
                     int finalNt = nt;
-                    usermail.FilterMail(message -> new StringTokenizer(message.getSubject()).countTokens() == finalNt).forEach(System.out::println);
+                    usermail.FilterMail(message -> new StringTokenizer(message.getSubject()).countTokens()+1 < finalNt).forEach(System.out::println);
                 }
+                case "3" -> System.out.println("Exiting filter menu");
                 default -> System.out.println("Incorrect option, try again.");
             }
-            inp = keyboard.nextLine();
         }
-
-        System.out.println("Exiting filter menu");
     }
 
 }

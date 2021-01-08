@@ -6,7 +6,7 @@ import part1.MailSystem;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 
-@Config(store="part1.MemMailStore", log=true)
+@ConfigMail(store="part1.MailStore.MemMailStore", log=true)
 public class MailSystemConfig extends MailSystem {
 
     /**
@@ -16,12 +16,12 @@ public class MailSystemConfig extends MailSystem {
      */
     public MailSystemConfig() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         super(
-                Boolean.parseBoolean(MailSystemConfig.class.getAnnotations()[1].toString()) ?
+                ((ConfigMail)MailSystemConfig.class.getAnnotations()[0]).log() ?
                 (MailStore) Proxy.newProxyInstance(
-                        Class.forName(MailSystemConfig.class.getAnnotations()[0].toString()).getClassLoader(),
+                        Class.forName(((ConfigMail)MailSystemConfig.class.getAnnotations()[0]).store()).getClassLoader(),
                         new Class[] { MailStore.class },
                         new MailStoreLog() )
-                : (MailStore) Class.forName(MailSystemConfig.class.getAnnotations()[0].toString()).getDeclaredConstructor().newInstance() );
+                : (MailStore) Class.forName(((ConfigMail)MailSystemConfig.class.getAnnotations()[0]).store()).getDeclaredConstructor().newInstance() );
     }
 
 

@@ -21,11 +21,11 @@ public class FilterTest {
         MailSystem mail = new MailSystem(mailstore);
 
         MailBox Pepitobox = mail.CreateUser("Pepito420", "Pepe", 2000);
-        MailBox pepebox = mail.CreateUser("XxX_Pepe_XxX", "Pepe", 2000);
+        MailBox ismaelbox = mail.CreateUser("Ismael2000", "Ismael", 2000);
         MailBox spambox = mail.CreateUser("spammer", "Spam", 1980);
 
         Pepitobox.SendMail("Pepito420", "Hola", "Student marks", LocalDateTime.now());
-        pepebox.SendMail("Pepito420", "ADFS", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", LocalDateTime.now());
+        ismaelbox.SendMail("Pepito420", "ADFS", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", LocalDateTime.now());
         spambox.SendMail("Pepito420", "Hola", "Muy buenas", LocalDateTime.now());
 
         MailBoxObservable Pepitoboxfilter = new MailBoxObservable("Pepito420", mailstore);

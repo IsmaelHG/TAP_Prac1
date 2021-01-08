@@ -6,6 +6,7 @@ import part1.MailStore.MemMailStore;
 import part1.exceptions.AlreadyTakenUsernameException;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -22,14 +23,14 @@ public class SystemTest {
         MailBox pepebox = mail.CreateUser("XxX_Pepe_XxX", "Pepe", 2000);
         MailBox franbox =mail.CreateUser("fran1980", "Francisco", 1980);
 
-        Pepitobox.SendMail("Pepito420","Hola","Muy buenas", LocalDateTime.now());
-        Pepitobox.SendMail("fran1980","adfs","Muy buenas", LocalDateTime.now());
-        pepebox.SendMail("Pepito420","ADFS","Muy buenas", LocalDateTime.now());
-        pepebox.SendMail("fran1980","adfs","Muy buenas", LocalDateTime.now());
-        franbox.SendMail("XxX_Pepe_XxX","jajajaja","Muy buenas", LocalDateTime.now());
-        franbox.SendMail("fran1980","Hola","Muy buenas", LocalDateTime.now());
-        Pepitobox.SendMail("XxX_Pepe_XxX","Hola","Muy buenas", LocalDateTime.now());
-        franbox.SendMail("Pepito420","Hola","Muy buenas", LocalDateTime.now());
+        Pepitobox.SendMail("Pepito420","Hola","Muy buenas", LocalDateTime.of(2018, Month.JULY, 29, 19, 30, 40));
+        Pepitobox.SendMail("fran1980","adfs","Muy buenas", LocalDateTime.of(2020, Month.MAY, 29, 19, 30, 40));
+        pepebox.SendMail("Pepito420","ADFS","Muy buenas", LocalDateTime.of(2021, Month.JANUARY, 8, 13, 25, 33));
+        pepebox.SendMail("fran1980","adfs","Muy buenas", LocalDateTime.of(2018, Month.DECEMBER, 29, 19, 30, 40));
+        franbox.SendMail("XxX_Pepe_XxX","Prueba","Muy buenas", LocalDateTime.of(2015, Month.JULY, 5, 19, 30, 40));
+        franbox.SendMail("fran1980","TAP","Muy buenas", LocalDateTime.of(2017, Month.MAY, 21, 13, 30, 30));
+        Pepitobox.SendMail("XxX_Pepe_XxX","Hola","Muy buenas", LocalDateTime.of(2013, Month.JULY, 29, 19, 30, 40));
+        franbox.SendMail("Pepito420","Hola","Muy buenas", LocalDateTime.of(2019, Month.AUGUST, 17, 19, 30, 40));
 
     }
 
@@ -54,14 +55,10 @@ public class SystemTest {
             System.out.println(m+"\n\n");
         }
 
-        System.out.println("\n");
-
         // Now list the messages by sender username using the mailbox feature.
         for (Message m : Pepitobox.FilterMail(message -> message.getSender().equals("XxX_Pepe_XxX"))) {
             System.out.println(m+"\n\n");
         }
-
-        System.out.println("\n");
 
         // Filter the messages with the following conditions:
         // -The message subject contains a certain word.
@@ -70,14 +67,10 @@ public class SystemTest {
             System.out.println(m+"\n\n");
         }
 
-        System.out.println("\n");
-
         // Use the mail system object to retrieve all messages and print them.
         for (Message m : mail.GetAllMessages()) {
             System.out.println(m+"\n\n");
         }
-
-        System.out.println("\n");
 
         //Filter messages globally that fulfill the following conditions:
         // -The message subject is a single word.
@@ -86,31 +79,23 @@ public class SystemTest {
             System.out.println(m+"\n\n");
         }
 
-        System.out.println("\n");
-
         // Get the count of messages in the system and print it.
-        System.out.println(mail.CountAllMesssages()+"\n\n");
-
-        System.out.println("\n");
+        System.out.println("Total number of messages is: "+mail.CountAllMesssages()+"\n");
 
         // Get the average number of messages received per user and print it.
-        System.out.println(mail.avgMessagesPerUser()+"\n\n");
-
-        System.out.println("\n");
+        System.out.println("Average number of messages per user is: "+mail.avgMessagesPerUser()+"\n");
 
         // Group the messages per subject in a Map<String, List<Message>>and print it.
         Map<String, List<Message>> m = mail.groupMessagesPerSubject();
         for (String s : m.keySet()) {
-            System.out.println(s+"\n\n");
+            System.out.println("Subject group: "+s+"\n");
+            m.get(s).forEach(System.out::println);
+            System.out.println("\n");
         }
-
-        System.out.println("\n");
 
         // Count the words of all messages sent by users with a certain real name.
         // Use the name that you used on two users. Print the result.
-        System.out.println(mail.countWordsFromName("Pepe")+"\n\n");
-
-        System.out.println("\n");
+        System.out.println("Number of words sent by users with the name Pepe is: "+mail.countWordsFromName("Pepe")+"\n\n");
 
         // Print the messages destinated to users born before the year 2000
         for (Message me : mail.getMessagesToUsersBornBeforeYear(2000) ) {
