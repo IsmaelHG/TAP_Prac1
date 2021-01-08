@@ -1,8 +1,10 @@
 package part1.CLI;
+import part1.MailBox;
 import part1.MailSystem;
 import part1.Message;
 import part1.exceptions.AlreadyTakenUsernameException;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -78,9 +80,7 @@ public class CLI {
                         e.printStackTrace();
                     }
                 }
-                case "4" -> {
-                    System.out.println("Exiting the application. Bye!");
-                }
+                case "4" -> System.out.println("Exiting the application. Bye!");
                 default -> System.out.println("Incorrect option, try again.");
             }
         }
@@ -116,16 +116,14 @@ public class CLI {
                     int finalNt = nt;
                     mail.FilterAllMessages(message -> new StringTokenizer(message.getSubject()).countTokens() == finalNt).forEach(System.out::println);
                 }
-                case "3" ->{
-                    System.out.println("Exiting filter menu");
-                }
+                case "3" -> System.out.println("Exiting filter menu");
                 default -> System.out.println("Incorrect option, try again.");
             }
         }
     }
 
     private void CLIUser(String Username) {
-        MailBoxOperations usermail = new MailBoxOperations(mail.RetrieveMailBox(Username));
+        MailBox usermail = mail.RetrieveMailBox(Username);
 
         Scanner keyboard = new Scanner(System.in);
         String inp = "";
@@ -141,7 +139,7 @@ public class CLI {
                     String subject = keyboard.nextLine();
                     System.out.println("Write the body (no ';' or line jump allowed): ");
                     String body = keyboard.nextLine();
-                    usermail.SendMessage(destination, subject, body);
+                    usermail.SendMail(destination, subject, body, LocalDateTime.now());
                     System.out.println("Message sent!");
                 }
                 case "2" -> {
@@ -158,7 +156,7 @@ public class CLI {
 
     }
 
-    private void SortMailBox(MailBoxOperations usermail) {
+    private void SortMailBox(MailBox usermail) {
 
         Scanner keyboard = new Scanner(System.in);
         String inp = "";
@@ -173,18 +171,18 @@ public class CLI {
             System.out.println("6. Exit sort menu");
             inp = keyboard.nextLine();
             switch (inp) {
-                case "1" -> usermail.SortMail(Comparator.comparing(Message::getCreationtime)).forEach(System.out::println);
-                case "2" -> usermail.SortMail(Comparator.comparing(Message::getSender)).forEach(System.out::println);
-                case "3" -> usermail.SortMail(Comparator.comparing(Message::getReceiver)).forEach(System.out::println);
-                case "4" -> usermail.SortMail(Comparator.comparing(Message::getSubject)).forEach(System.out::println);
-                case "5" -> usermail.SortMail(Comparator.comparing(Message::getBody)).forEach(System.out::println);
+                case "1" -> usermail.GetSortedMail(Comparator.comparing(Message::getCreationtime)).forEach(System.out::println);
+                case "2" -> usermail.GetSortedMail(Comparator.comparing(Message::getSender)).forEach(System.out::println);
+                case "3" -> usermail.GetSortedMail(Comparator.comparing(Message::getReceiver)).forEach(System.out::println);
+                case "4" -> usermail.GetSortedMail(Comparator.comparing(Message::getSubject)).forEach(System.out::println);
+                case "5" -> usermail.GetSortedMail(Comparator.comparing(Message::getBody)).forEach(System.out::println);
                 case "6" -> System.out.println("Exiting sorting menu");
                 default -> System.out.println("Incorrect option, try again.");
             }
         }
     }
 
-    private void FilterMailBox(MailBoxOperations usermail) {
+    private void FilterMailBox(MailBox usermail) {
         Scanner keyboard = new Scanner(System.in);
         String inp = "";
 

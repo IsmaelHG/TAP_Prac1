@@ -10,11 +10,16 @@ import java.lang.reflect.Method;
  *
  */
 public class MailStoreLog implements InvocationHandler {
+    private Object impl;
+
+    public MailStoreLog(Object impl) {
+        this.impl = impl;
+    }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
         System.out.println("Invoked method: {" +method.getName()+"}");
-        return 1;
+        return method.invoke(this.impl,args);
     }
 
 }

@@ -20,7 +20,7 @@ public class MailSystemConfig extends MailSystem {
                 (MailStore) Proxy.newProxyInstance(
                         Class.forName(((ConfigMail)MailSystemConfig.class.getAnnotations()[0]).store()).getClassLoader(),
                         new Class[] { MailStore.class },
-                        new MailStoreLog() )
+                        new MailStoreLog(Class.forName(((ConfigMail)MailSystemConfig.class.getAnnotations()[0]).store()).getDeclaredConstructor().newInstance()) )
                 : (MailStore) Class.forName(((ConfigMail)MailSystemConfig.class.getAnnotations()[0]).store()).getDeclaredConstructor().newInstance() );
     }
 

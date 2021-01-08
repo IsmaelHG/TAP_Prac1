@@ -1,9 +1,5 @@
 package part4;
 
-import part1.MailStore.FileMailStore;
-import part1.MailStore.MailStore;
-import part1.MailStore.MemMailStore;
-import part1.MailSystem;
 import part1.SystemTest;
 import part1.exceptions.AlreadyTakenUsernameException;
 

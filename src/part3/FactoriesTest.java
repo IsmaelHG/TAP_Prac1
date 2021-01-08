@@ -33,7 +33,11 @@ public class FactoriesTest {
             System.out.println("1. Memory factory");
             System.out.println("2. Wrapped factory");
             System.out.println("3. Redis factory (make sure redis server is running at 127.0.0.1:6379)");
-            op = keyboard.nextInt();
+            try {
+                op = Integer.parseInt(keyboard.nextLine());
+            } catch (Exception e) {
+                System.out.println("Type a number!");
+            }
             switch (op) {
                 case 1:
                     mailstore = memoryfactory.createMailStore();
@@ -45,7 +49,6 @@ public class FactoriesTest {
                     mailstore = redisfactory.createMailStore();
                     break;
                 default:
-
             }
         }
 

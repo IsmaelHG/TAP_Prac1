@@ -28,6 +28,7 @@ public class FileMailStore implements MailStore {
     public FileMailStore(String filename) {
         this.filename=filename;
     }
+    public FileMailStore() {this.filename="messages.txt"; }
 
     @Override
     public void SendMail(Message mail) {
